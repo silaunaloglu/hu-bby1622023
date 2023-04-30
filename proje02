@@ -1,0 +1,104 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyM8/XVTSe70AtRoAum6phjE",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/silaunaloglu/hu-bby1622023/blob/main/proje02\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "ordyJFBSpqHY"
+      },
+      "outputs": [],
+      "source": [
+        "import random\n",
+        "\n",
+        "# Kelime listesi\n",
+        "kelimeler = {\n",
+        "    \"meyve\": [\"elma\", \"armut\", \"muz\", \"çilek\", \"portakal\", \"karpuz\", \"üzüm\", \"şeftali\", \"limon\", \"erik\"],\n",
+        "    \"renk\": [\"kırmızı\", \"mavi\", \"yeşil\", \"sarı\", \"turuncu\", \"mor\", \"pembe\", \"siyah\", \"beyaz\", \"kahverengi\"],\n",
+        "    \"hayvan\": [\"köpek\", \"kedi\", \"kuş\", \"tavşan\", \"aslan\", \"fil\", \"zebra\", \"deve\", \"at\", \"inek\"]\n",
+        "}\n",
+        "\n",
+        "# Oyun fonksiyonu\n",
+        "def oyun():\n",
+        "    print(\"Adam Asmaca oyununa hoş geldiniz!\")\n",
+        "    while True:\n",
+        "        # Seviye seçimi\n",
+        "        seviye = input(\"Lütfen bir seviye seçin: basit, orta, ileri\\n\").lower()\n",
+        "        if seviye == \"basit\":\n",
+        "            can = 5\n",
+        "        elif seviye == \"orta\":\n",
+        "            can = 3\n",
+        "        elif seviye == \"ileri\":\n",
+        "            can = 1\n",
+        "        else:\n",
+        "            print(\"Lütfen geçerli bir seviye seçin!\")\n",
+        "            continue\n",
+        "\n",
+        "        # Kelime ve ipucu seçimi\n",
+        "        kategori = random.choice(list(kelimeler.keys()))\n",
+        "        kelime = random.choice(kelimeler[kategori])\n",
+        "        ipucu = f\"{kategori.capitalize()} kategorisinde bir kelime ({len(kelime)} harf)\"\n",
+        "        harfler = set(kelime.lower())  # doğru tahmin edilen harfler için kullanılacak\n",
+        "\n",
+        "        # Oyun döngüsü\n",
+        "        tahminler = set()  # tahmin edilen harfler için kullanılacak\n",
+        "        while can > 0:\n",
+        "            # Durum çıktısı\n",
+        "            print(ipucu)\n",
+        "            print(f\"Kalan canınız: {can}\")\n",
+        "            kelime_gosterimi = \"\".join([harf if harf in tahminler else \"_\" for harf in kelime])\n",
+        "            print(kelime_gosterimi)\n",
+        "\n",
+        "            # Tahmin alma\n",
+        "            tahmin = input(\"Bir harf tahmin edin: \").lower()\n",
+        "            if tahmin in tahminler:\n",
+        "                print(\"Bu harfi zaten tahmin ettiniz!\")\n",
+        "            elif tahmin in harfler:\n",
+        "                print(\"Doğru tahmin!\")\n",
+        "                tahminler.add(tahmin)\n",
+        "                if tahminler == harfler:\n",
+        "                    print(f\"Tebrikler, kelimeyi doğru tahmin ettiniz! ({kelime})\")\n",
+        "                    break\n",
+        "            else:\n",
+        "                print(\"Yanlış tahmin!\")\n",
+        "                tahminler.add(tahmin)\n",
+        "                can -= 1\n",
+        "\n",
+        "        # Yeniden oynama sorgusu\n",
+        "        if input(\"Tekrar oynamak ister misiniz? (E/H)\").lower() == \"e\":\n",
+        "            continue\n",
+        "        else:\n",
+        "            print(\"Oyun bitti, teşekkürler!\")\n",
+        "            break\n",
+        "\n",
+        "# Oyunu başlat\n",
+        "oyun()"
+      ]
+    }
+  ]
+}
